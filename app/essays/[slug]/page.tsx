@@ -4,7 +4,6 @@ import { CustomMDX } from 'app/components/mdx'
 import { getEssays, getEssay } from 'app/essays/utils'
 import { formatDate } from 'app/lib/format'
 import { baseUrl } from 'app/sitemap'
-import { WikipediaLink } from 'app/essays/WikipediaLink'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -35,6 +34,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title,
     description: summary,
+    alternates: {
+      canonical: `${baseUrl}/essays/${post.slug}`,
+    },
     openGraph: {
       title,
       description: summary,
@@ -44,6 +46,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       images: [
         {
           url: finalOgImage,
+          width: 1200,
+          height: 630,
+          alt: title,
         },
       ],
     },
@@ -123,13 +128,13 @@ export default function Blog({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <section className="px-4 py-8">
-      <div className="mx-auto max-w-2xl flex items-center justify-between mb-6">
+    <section className="max-w-[640px] mx-auto font-serif text-zinc-900 dark:text-zinc-100">
+      <div className="mb-7">
         <Link
           href="/essays"
-          className="text-sm underline decoration-1 underline-offset-2 text-neutral-600 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors"
+          className="text-[12px] text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
         >
-          ← Return to all essays
+          &larr; essays
         </Link>
       </div>
       <script
@@ -145,64 +150,71 @@ export default function Blog({ params }: { params: { slug: string } }) {
             description: post.metadata.summary,
             image: post.metadata.ogImage
               ? post.metadata.ogImage
-              : `/yazzone-og.png`,
+              : `${baseUrl}/yazzone-og.png`,
             url: `${baseUrl}/essays/${post.slug}`,
             author: {
               '@type': 'Person',
               name: 'Yaz Caleb',
               url: 'https://yaz.zone',
-              sameAs: ['https://x.com/yazcal'],
+              sameAs: ['https://x.com/yazcal', 'https://github.com/yazcaleb'],
             },
           }),
         }}
       />
-      <div className="mx-auto max-w-2xl">
-        <header className="mb-8 text-left">
-          <h1 className="title font-bold text-4xl sm:text-5xl tracking-tight mb-6 text-black dark:text-white">
-            {post.metadata.title}
-          </h1>
-          <div className="flex items-center gap-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-            <time dateTime={post.metadata.publishedAt}>
-              {formatDate(post.metadata.publishedAt)}
-            </time>
-            <span>•</span>
-            <span>{post.metadata.readingTime}</span>
+
+      <header className="mb-10">
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight mb-4 text-black dark:text-white">
+          {post.metadata.title}
+        </h1>
+        <div className="flex items-center gap-3 text-[12px] text-zinc-400 dark:text-zinc-500">
+          <time dateTime={post.metadata.publishedAt}>
+            {formatDate(post.metadata.publishedAt)}
+          </time>
+          <span>&middot;</span>
+          <span>{post.metadata.readingTime}</span>
+        </div>
+        {post.metadata.image && (
+          <div className="mt-8">
+            <img
+              src={post.metadata.image}
+              alt={post.metadata.title}
+              width={1280}
+              height={720}
+              decoding="async"
+              className="w-full h-auto"
+            />
           </div>
-          {post.metadata.image && (
-            <div className="mb-8 relative">
-              <img
-                src={post.metadata.image}
-                alt={post.metadata.title}
-                width={1280}
-                height={720}
-                decoding="async"
-                className="w-full h-auto rounded-md shadow-sm"
-              />
-            </div>
-          )}
-        </header>
-        <article className="prose prose-lg dark:prose-invert">
-        <CustomMDX source={post.content} components={{ WikipediaLink }}/>
+        )}
+      </header>
+
+      <article className="prose">
+        <CustomMDX source={post.content} />
       </article>
 
       <TldrDropdown title={post.metadata.title} slug={post.slug} />
-      </div>
 
-      <footer className="mx-auto max-w-2xl mt-20 pt-8 border-t border-neutral-200 dark:border-neutral-800">
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
-          — <Link href="/" className="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">Yaz</Link>
+      <footer className="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+        <p className="text-[13px] text-zinc-400 dark:text-zinc-500 mb-6">
+          &mdash;{' '}
+          <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+            yaz
+          </Link>
         </p>
-        <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-          {readNext.slice(0, 3).map((e) => (
-            <Link 
-              key={e.slug}
-              href={`/essays/${e.slug}`} 
-              className="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-            >
-              {e.metadata.title}
-            </Link>
-          ))}
-        </nav>
+        {readNext.length > 0 && (
+          <nav className="space-y-1 text-[13px]">
+            {readNext.map((e) => (
+              <p key={e.slug}>
+                &gt;{' '}
+                <Link
+                  href={`/essays/${e.slug}`}
+                  className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                >
+                  {e.metadata.title}
+                </Link>
+              </p>
+            ))}
+          </nav>
+        )}
       </footer>
     </section>
   )

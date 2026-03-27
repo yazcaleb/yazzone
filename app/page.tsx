@@ -1,74 +1,17 @@
 import Link from 'next/link'
-import { getEssays, getHomepageData, getBackstoryData } from 'app/essays/utils'
-import { Intro } from './components/home/Intro'
-import { Backstory } from './components/home/Backstory'
-import { FeaturedEssays } from './components/home/FeaturedEssays'
-import { History } from './components/home/History'
-import { Now } from './components/home/Now'
-import { Library } from './components/home/Library'
+import { getEssays } from 'app/essays/utils'
+import AgeCounter from 'app/components/AgeCounter'
+import ContribGraph from 'app/components/ContribGraph'
 
-// Static TL;DR dropdown component - CSS only, no JS
-function TldrDropdown({ title }: { title?: string }) {
-  const pageUrl = 'https://yaz.zone'
-  const prompt = title
-    ? `Read this page and summarize it in crisp bullet points: ${pageUrl}
-
-Title: "${title}"
-
-Be direct—every bullet should carry weight. Include key arguments, facts, and conclusions. Skip filler. After summarizing, ask if I have questions.`
-    : `Read this page and summarize it in crisp bullet points: ${pageUrl}
-
-Be direct—every bullet should carry weight. Include key arguments, facts, and conclusions. Skip filler. After summarizing, ask if I have questions.`
-
-  const encodedPrompt = encodeURIComponent(prompt)
-
-  return (
-    <details className="tldr-dropdown">
-      <summary>TL;DR</summary>
-      <div className="tldr-menu">
-        <div className="py-1">
-          <a
-            href={`https://chatgpt.com/?m=${encodedPrompt}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tldr-link"
-          >
-            ChatGPT
-            <span className="text-xs text-zinc-400">↗</span>
-          </a>
-          <a
-            href={`https://claude.ai/new?q=${encodedPrompt}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tldr-link"
-          >
-            Claude
-            <span className="text-xs text-zinc-400">↗</span>
-          </a>
-          <a
-            href={`https://www.perplexity.ai/search?q=${encodedPrompt}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tldr-link"
-          >
-            Perplexity
-            <span className="text-xs text-zinc-400">↗</span>
-          </a>
-        </div>
-        <div className="tldr-footer">
-          <p className="text-xs text-zinc-400 dark:text-zinc-500">
-            AI will read &amp; summarize this page
-          </p>
-        </div>
-      </div>
-    </details>
-  )
-}
+export const revalidate = 3600
 
 export default function Page() {
   const allEssays = getEssays()
-  const { now } = getHomepageData()
-  const backstory = getBackstoryData()
+    .sort((a, b) =>
+      new Date(b.metadata.publishedAt).getTime() -
+      new Date(a.metadata.publishedAt).getTime()
+    )
+    .slice(0, 3)
 
   return (
     <>
@@ -80,180 +23,132 @@ export default function Page() {
             '@context': 'https://schema.org',
             '@type': 'Person',
             name: 'Yaz Caleb',
-            alternateName: ['Yaz A. Caleb', 'Yagiz Erkam Celebi', 'Yagiz Celebi', 'Yagiz Erkam Celebi', 'Yaz Celebi', 'Yagiz Erkam'],
+            alternateName: ['Yaz A. Caleb', 'Yagiz Erkam Celebi'],
             url: 'https://yaz.zone',
             image: 'https://yaz.zone/yaz-latest.webp',
-            description: 'Left school at 16. Built my first company at 14. Now building what AI needs to run without asking permission.',
+            description: 'Building authorization infrastructure for autonomous software. Cofounder at Plaw.',
             jobTitle: 'Cofounder & CEO',
-            worksFor: {
-              '@type': 'Organization',
-              name: 'Plaw Inc.',
-              url: 'https://plaw.io',
-              sameAs: ['https://vulnzap.com', 'https://veto.run'],
-            },
-            sameAs: [
-              'https://x.com/yazcal',
-              'https://github.com/plawlost',
-              'https://instagram.com/yazcaleb',
-            ],
-            knowsAbout: ['AI agents', 'authorization', 'infrastructure', 'security', 'startups'],
-            alumniOf: {
-              '@type': 'EducationalOrganization',
-              name: 'Arizona State University',
-            },
+            worksFor: { '@type': 'Organization', name: 'Plaw Inc.', url: 'https://plaw.io' },
+            sameAs: ['https://x.com/yazcal', 'https://github.com/yazcaleb'],
             birthDate: '2009',
-            nationality: 'Turkish',
+            nationality: ['Turkish', 'Albanian'],
           }),
         }}
       />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-6xl mx-auto">
-      <div className="md:col-span-1 space-y-8 md:space-y-12">
-        <header className="flex flex-col space-y-4">
-          <div className="flex items-center space-x-4">
-            <img
-              src="/avatar-192.webp"
-              alt="Yaz Caleb"
-              width={64}
-              height={64}
-              className="rounded-full"
-              decoding="async"
-            />
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">
-                Yaz A. Caleb.
-              </h1>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            <nav className="flex space-x-4 text-sm">
-              <a href="#now" className="text-zinc-500 dark:text-zinc-400 hover:underline">Now</a>
-              <a href="#history" className="text-zinc-500 dark:text-zinc-400 hover:underline">History</a>
-              <a href="/essays" className="text-zinc-500 dark:text-zinc-400 hover:underline">Essays</a>
-            </nav>
-          </div>
-        </header>
 
-        <div className="hidden md:block space-y-4">
-          <div className="space-y-1 text-sm text-zinc-500 dark:text-zinc-400">
-            <a href="mailto:yaz@plaw.io" className="block hover:underline">
-              yaz@plaw.io
-            </a>
-            <a href="https://wa.me/16283034902" target="_blank" rel="noopener noreferrer" className="block hover:underline">
-              +1 (628) 303-4902
-            </a>
-            <a href="https://cal.com/yaz" target="_blank" rel="noopener noreferrer" className="block hover:underline">
-              Schedule a call
-            </a>
+      <div className="homepage-minimal max-w-[560px] mx-auto font-serif text-[14px] leading-[1.38] text-zinc-900 dark:text-zinc-100 min-h-[calc(100vh-5rem)] flex flex-col">
+        {/* Header */}
+        <div className="flex items-start justify-between mb-7">
+          <div>
+            <h1 className="text-[14px] font-normal leading-[1.38]">Hi, I&apos;m Yaz.</h1>
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">Yaz Caleb / Yaz Celebi / Ya&#287;&#305;z Erkam &Ccedil;elebi</p>
           </div>
+          <img
+            src="/avatar-192.webp"
+            alt="Yaz Caleb"
+            width={20}
+            height={20}
+            className="rounded-[2px] mt-0.5"
+            decoding="async"
+          />
         </div>
 
-        <div className="hidden md:block space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-          <a
-            href="https://x.com/yazcal"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block hover:underline"
-          >
-            X <span className="text-xs text-zinc-400 dark:text-zinc-500">(preferred)</span>
-          </a>
-          <a
-            href="https://instagram.com/yazcaleb"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block hover:underline"
-          >
-            Instagram <span className="text-xs text-zinc-400 dark:text-zinc-500">(rare)</span>
-          </a>
-          <a
-            href="https://github.com/plawlost"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block hover:underline"
-          >
-            Github <span className="text-xs text-zinc-400 dark:text-zinc-500">(in-progress)</span>
-          </a>
-          <a
-            href="https://asu.academia.edu/YazCaleb"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block hover:underline"
-          >
-            Academia <span className="text-xs text-zinc-400 dark:text-zinc-500">(new)</span>
-          </a>
+        <div className="mb-6">
+          <p>&gt; building things, solving problems I put myself in, mostly</p>
+          <p>&gt; <AgeCounter /></p>
         </div>
 
-        
-      </div>
-
-      <div className="md:col-span-2 space-y-12 md:space-y-16">
-        <Intro />
-        <Backstory content={backstory} />
-        <Library />
-        <FeaturedEssays essays={allEssays} />
-        <Now />
-        <History />
-
-        <section className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-1 film-grain">
-              <img
-                src="/yaz-latest-sm.webp"
-                srcSet="/yaz-latest-sm.webp 449w, /yaz-latest.webp 1031w"
-                sizes="(max-width: 768px) 100vw, 33vw"
-                alt="Yaz Caleb"
-                width={449}
-                height={800}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto max-h-[550px] md:max-h-none md:max-w-none rounded-md grayscale contrast-[1.1] brightness-[1.1] object-cover object-[center_20%]"
-              />
-            </div>
-            <div className="md:col-span-2 flex flex-col justify-end">
-            <div className="film-grain">
-              <img
-                src="/yazpic2-sm.webp"
-                srcSet="/yazpic2-sm.webp 800w, /yazpic2.webp 1668w"
-                sizes="(max-width: 768px) 100vw, 66vw"
-                alt="Yaz A. Caleb in childhood"
-                width={800}
-                height={480}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto object-cover rounded-md grayscale contrast-[1.1]"
-              />
-            </div>
-              <div className="mt-4 flex items-end justify-between">
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                  Current commit, and the first one.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 italic max-w-xl">
-          "When you build a thing you cannot merely build that thing in isolation, but must repair the world around it, and within it." — Christopher Alexander
+        <p className="mb-1">
+          Turkish-Albanian. I like Camus, Orwell, tennis and isolation lifts.
+        </p>
+        <p className="mb-7">
+          but I spend most of my time on authorization for autonomous
+          systems &mdash; agents call APIs, move money, sign contracts,
+          and nobody has a good answer for who gets to say yes. I think
+          the system that acts needs to be accountable before it acts,
+          not after.
         </p>
 
-        <TldrDropdown title="Yaz Caleb — Homepage" />
-      </div>
-
-      <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 pt-8 mt-8">
-        <div className="grid grid-cols-2 gap-4 text-sm text-zinc-500 dark:text-zinc-400">
-          <div className="space-y-1">
-            <a href="mailto:yaz@plaw.io" className="block hover:underline">yaz@plaw.io</a>
-            <a href="https://wa.me/16283034902" target="_blank" rel="noopener noreferrer" className="block hover:underline">+1 (628) 303-4902</a>
-            <a href="https://cal.com/yaz" target="_blank" rel="noopener noreferrer" className="block hover:underline">Schedule a call</a>
+        {/* Now + photo */}
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_220px] gap-4 mb-8 items-start">
+          <div>
+            <p className="underline mb-4">now</p>
+            <p>
+              &gt;{' '}
+              <a href="https://veto.so" target="_blank" rel="noopener noreferrer">Veto</a>
+              {' '}at{' '}
+              <a href="https://plaw.io" target="_blank" rel="noopener noreferrer">Plaw</a>
+            </p>
+            <p>&gt; research at ASU &mdash; AI / security / econ</p>
+            <p>&gt; looking for founding team &mdash; <a href="mailto:team@plaw.io?subject=the%20best%20thing%20I%20ever%20built&amp;body=%0Askip%20the%20resume%20%E2%80%94%20what%20did%20you%20build%2C%20and%20why%20should%20we%20build%20together%3F%0A%0A" className="underline underline-offset-2 decoration-1">team@plaw.io</a></p>
+            <p>&gt; raising pre-seed &mdash; <a href="https://cal.com/yaz/bet" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 decoration-1">schedule a call</a></p>
           </div>
-          <div className="space-y-1">
-            <a href="https://x.com/yazcal" target="_blank" rel="noopener noreferrer" className="block hover:underline">X</a>
-            <a href="https://instagram.com/yazcaleb" target="_blank" rel="noopener noreferrer" className="block hover:underline">Instagram</a>
-            <a href="https://github.com/plawlost" target="_blank" rel="noopener noreferrer" className="block hover:underline">Github</a>
-            <a href="https://asu.academia.edu/YazCaleb" target="_blank" rel="noopener noreferrer" className="block hover:underline">Academia</a>
+          <img
+            src="/yazpic2-sm.webp"
+            alt="Yaz Caleb"
+            width={800}
+            height={480}
+            className="w-full h-auto object-cover object-[center_20%] grayscale contrast-[1.15] sm:-mt-4"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        {/* Past + photo */}
+        <div className="grid grid-cols-[105px_1fr] gap-6 mb-7 items-start">
+          <img
+            src="/maggie.webp"
+            alt="Maggie"
+            width={451}
+            height={800}
+            className="w-full h-[140px] object-cover object-center contrast-[1.05]"
+            loading="lazy"
+            decoding="async"
+          />
+          <div>
+            <p className="mb-5">previously at / contributed to</p>
+            <div className="space-y-0.5">
+              <p>&gt; <a href="https://cluely.com" target="_blank" rel="noopener noreferrer">Cluely</a></p>
+              <p>&gt; <a href="https://thirdlayer.inc" target="_blank" rel="noopener noreferrer">ThirdLayer</a> (YC W25)</p>
+              <p>&gt; Clade AI &mdash; shut down</p>
+              <p>&gt; NASA Space Apps</p>
+              <p>&gt; early GPT-3 / DALL&middot;E access, TED-Ed talk</p>
+              <p>&gt; <span className="text-zinc-400 dark:text-zinc-500">...and a few that didn&apos;t make it</span></p>
+            </div>
           </div>
         </div>
+
+        {/* Essays */}
+        <div className="mb-4">
+          <p className="underline mb-4">recent writing</p>
+          {allEssays.map((post) => {
+            const [y, m] = post.metadata.publishedAt.split('-')
+            const mon = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[+m - 1]
+            return (
+              <p key={post.slug} className="flex items-baseline justify-between gap-3">
+                <span>
+                  &gt;{' '}
+                  <Link href={`/essays/${post.slug}`}>
+                    {post.metadata.title}
+                  </Link>
+                </span>
+                <span className="text-[11px] text-zinc-400 dark:text-zinc-500 shrink-0">{mon} {y}</span>
+              </p>
+            )
+          })}
+        </div>
+
+        <div className="flex-1" />
+
+        <ContribGraph />
+
+        <footer className="flex items-center justify-between mt-1">
+          <a href="https://x.com/yazcal" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">x</a>
+          <Link href="/essays">essays</Link>
+          <a href="https://github.com/yazcaleb" target="_blank" rel="noopener noreferrer">github</a>
+          <a href="mailto:y@plaw.io?subject=hey&amp;body=(via%20yaz.zone)%0A%0A">y@plaw.io</a>
+        </footer>
       </div>
-    </div>
     </>
   )
 }

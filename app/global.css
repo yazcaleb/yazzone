@@ -8,6 +8,11 @@
 
 /* Light mode defaults */
 :root {
+  --cg-empty: #f4f4f5;
+  --cg-l1: #d4d4d8;
+  --cg-l2: #a1a1aa;
+  --cg-l3: #52525b;
+  --cg-l4: #18181b;
   --sh-class: #000;
   --sh-identifier: #000;
   --sh-sign: #000;
@@ -33,6 +38,11 @@ html:focus-within {
 /* Dark mode via system preference */
 @media (prefers-color-scheme: dark) {
   :root {
+    --cg-empty: #27272a;
+    --cg-l1: #3f3f46;
+    --cg-l2: #71717a;
+    --cg-l3: #a1a1aa;
+    --cg-l4: #e4e4e7;
     --sh-class: #fff;
     --sh-identifier: #fff;
     --sh-sign: #fff;
@@ -67,19 +77,6 @@ html:focus-within {
 /* ============================================
    FILM GRAIN EFFECT
    ============================================ */
-.film-grain {
-  position: relative;
-}
-.film-grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.08;
-  pointer-events: none;
-  border-radius: inherit;
-  mix-blend-mode: overlay;
-}
 
 /* ============================================
    VIEW TRANSITIONS - fast slideshow effect
@@ -122,13 +119,7 @@ html:focus-within {
    BASE LINK STYLES
    ============================================ */
 a {
-  @apply text-purple-700;
-}
-
-@media (prefers-color-scheme: dark) {
-  a {
-    @apply text-purple-400;
-  }
+  color: inherit;
 }
 
 a:hover {
@@ -157,11 +148,11 @@ a:hover {
 
 .prose a {
   @apply underline underline-offset-2 decoration-1;
-  text-decoration-color: black;
+  text-decoration-color: currentColor;
 }
 
 .prose .anchor:after {
-  @apply text-black;
+  @apply text-zinc-400;
   content: '#';
 }
 
@@ -170,7 +161,7 @@ a:hover {
 }
 
 .prose pre {
-  @apply bg-neutral-50 overflow-x-auto border border-black py-3 px-4 text-sm;
+  @apply bg-neutral-50 overflow-x-auto border border-neutral-200 py-3 px-4 text-sm;
 }
 
 .prose code {
@@ -192,38 +183,39 @@ a:hover {
 }
 
 .prose p {
-  @apply my-6 leading-[1.85] text-[1.125rem] font-normal;
-  color: #18181b; /* zinc-900 */
+  @apply my-5 text-[0.9375rem] font-normal;
+  line-height: 1.65;
+  color: inherit;
 }
 
 .prose h1 {
-  @apply text-4xl font-bold tracking-tight mt-12 mb-6;
-  color: #18181b;
+  @apply text-xl font-bold tracking-tight mt-10 mb-4;
+  color: inherit;
 }
 
 .prose h2 {
-  @apply text-3xl font-bold tracking-tight mt-12 mb-6;
-  color: #18181b;
+  @apply text-[1.125rem] font-bold tracking-tight mt-10 mb-4;
+  color: inherit;
 }
 
 .prose h3 {
-  @apply text-2xl font-semibold tracking-tight mt-8 mb-4;
-  color: #18181b;
+  @apply text-[1rem] font-semibold tracking-tight mt-8 mb-3;
+  color: inherit;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-3;
-  color: #18181b;
+  @apply text-[0.9375rem] font-semibold tracking-tight mt-6 mb-2;
+  color: inherit;
 }
 
 .prose strong {
   @apply font-bold;
-  color: #18181b;
+  color: inherit;
 }
 
 .prose em {
   @apply italic;
-  color: #18181b;
+  color: inherit;
 }
 
 .prose blockquote {
@@ -240,7 +232,7 @@ a:hover {
 
 .prose li {
   @apply relative pl-6;
-  color: #18181b;
+  color: inherit;
 }
 
 .prose li::before {
@@ -260,13 +252,9 @@ a:hover {
 
 /* Lead paragraph slightly larger */
 .prose p:first-of-type {
-  @apply text-[1.25rem] leading-[1.9];
+  @apply text-[1rem];
+  line-height: 1.7;
 }
-
-/* Tighter heading spacing for better rhythm */
-.prose h1 { @apply mt-10 mb-4; }
-.prose h2 { @apply mt-10 mb-4; }
-.prose h3 { @apply mt-8 mb-3; }
 
 /* Underline support for inline <u> */
 .prose u { @apply underline decoration-1 underline-offset-2; }
@@ -275,23 +263,8 @@ a:hover {
    PROSE DARK MODE - Must come after light styles
    ============================================ */
 @media (prefers-color-scheme: dark) {
-  .prose p,
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose strong,
-  .prose em,
-  .prose li {
-    color: #fafafa !important; /* zinc-50 */
-  }
-
-  .prose a {
-    text-decoration-color: white;
-  }
-
   .prose .anchor:after {
-    @apply text-white;
+    @apply text-zinc-500;
   }
 
   .prose pre {
@@ -629,4 +602,28 @@ img {
 /* Prevent layout shift */
 img[width][height] {
   aspect-ratio: attr(width) / attr(height);
+}
+
+/* ============================================
+   MINIMAL PAGE OVERRIDES (homepage + essays)
+   ============================================ */
+.homepage-minimal a {
+  color: #52525b; /* zinc-600 — subtle but distinct */
+  text-decoration: none;
+}
+.homepage-minimal a:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  .homepage-minimal a {
+    color: #a1a1aa; /* zinc-400 */
+  }
+  .homepage-minimal a:hover {
+    color: inherit;
+  }
+}
+.homepage-minimal img {
+  border-radius: 1px;
 }

@@ -6,13 +6,13 @@ export async function GET() {
   const allEssays = getEssays();
 
   const feed = new RSS({
-    title: 'Yaz A. Caleb | Essays',
-    description: 'All my raw takes about leverage, entropy, and the few things worth betting your life on.',
+    title: 'Yaz Caleb | Essays',
+    description: 'Essays on systems, autonomy, and building things that matter.',
     site_url: `${baseUrl}/essays`,
     feed_url: `${baseUrl}/feed.xml`,
     language: 'en',
     pubDate: new Date(),
-    copyright: `© ${new Date().getFullYear()} Yaz A. Caleb`,
+    copyright: `© ${new Date().getFullYear()} Yaz Caleb`,
   });
 
   allEssays.forEach((post) => {
@@ -21,7 +21,7 @@ export async function GET() {
       description: post.metadata.summary,
       url: `${baseUrl}/essays/${post.slug}`,
       date: post.metadata.publishedAt,
-      author: 'Yaz A. Caleb',
+      author: 'Yaz Caleb',
     });
   });
 

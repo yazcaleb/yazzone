@@ -54,7 +54,7 @@ function RoundedImage(props) {
       height={props.height}
       loading="lazy"
       decoding="async"
-      className="rounded-lg"
+      className=""
     />
   )
 }
@@ -109,6 +109,7 @@ let components = {
   a: CustomLink,
   code: Code,
   Table,
+  WikipediaLink,
 }
 
 export function CustomMDX(props) {
