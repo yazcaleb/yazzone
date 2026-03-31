@@ -76,10 +76,10 @@ export default function Page() {
             <p>
               &gt;{' '}building{' '}
               <a href="https://veto.so" target="_blank" rel="noopener noreferrer">Veto</a>
-              <span className="text-zinc-400 dark:text-zinc-500"> &mdash; agent authorization &middot; </span>
+              <span className="text-zinc-400 dark:text-zinc-500"> &mdash; agent authorization /</span>
               <a href="https://plaw.io" target="_blank" rel="noopener noreferrer">P<span className="text-zinc-400 dark:text-zinc-500">(rogrammable)</span>law, Inc.</a>
             </p>
-            <p>&gt; <a href="/can-is-not-may.pdf" target="_blank" rel="noopener noreferrer">Can Is Not May</a><span className="text-zinc-400 dark:text-zinc-500"> &mdash; preprint &middot; ASU</span></p>
+            <p>&gt; <a href="/can-is-not-may.pdf" target="_blank" rel="noopener noreferrer">Can Is Not May</a><span className="text-zinc-400 dark:text-zinc-500"> &mdash; preprint / ASU</span></p>
             <p>&gt; looking for founding team &mdash; <a href="mailto:team@plaw.io?subject=the%20best%20thing%20I%20ever%20built&amp;body=%0Askip%20the%20resume%20%E2%80%94%20what%20did%20you%20build%2C%20and%20why%20should%20we%20build%20together%3F%0A%0A" className="underline underline-offset-2 decoration-1">team@plaw.io</a></p>
             <p>&gt; raising pre-seed &mdash; <a href="https://cal.com/yaz/bet" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 decoration-1">schedule a call</a></p>
           </div>

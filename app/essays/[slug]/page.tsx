@@ -118,7 +118,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
           <time dateTime={post.metadata.publishedAt}>
             {formatDate(post.metadata.publishedAt)}
           </time>
-          <span>&middot;</span>
+          <span>/</span>
           <span>{post.metadata.readingTime}</span>
         </div>
         {post.metadata.image && (

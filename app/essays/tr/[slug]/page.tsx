@@ -71,7 +71,7 @@ export default function TrEssayPage({ params }: { params: { slug: string } }) {
         </h1>
         <div className="flex items-center gap-3 text-[12px] text-zinc-400 dark:text-zinc-500">
           <time dateTime={post.metadata.publishedAt}>{date}</time>
-          <span>&middot;</span>
+          <span>/</span>
           <span>{post.readingTime}</span>
         </div>
       </header>
@@ -94,7 +94,7 @@ export default function TrEssayPage({ params }: { params: { slug: string } }) {
           >
             Read in English &rarr;
           </Link>
-          <span>&middot;</span>
+          <span>/</span>
           <span>Gemini 3.1 Pro tarafından otomatik Türkçeye çevrilmiştir</span>
         </p>
       </footer>
