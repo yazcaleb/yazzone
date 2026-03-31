@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${baseUrl}/yazzone-og.png`,
+        url: `${baseUrl}/og`,
         width: 1200,
         height: 630,
         alt: 'Yaz Caleb',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: 'Yaz Caleb',
     description: 'Builder. Founder of Veto and Plaw. Essays on AI, infrastructure, and compounding conviction.',
     creator: '@yazcal',
-    images: [`${baseUrl}/yazzone-og.png`],
+    images: [`${baseUrl}/og`],
   },
   robots: {
     index: true,

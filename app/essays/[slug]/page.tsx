@@ -29,7 +29,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   } = post.metadata
   let finalOgImage = ogImage
     ? ogImage
-    : `${baseUrl}/yazzone-og.png`
+    : `${baseUrl}/og?title=${encodeURIComponent(title)}`
 
   return {
     title,
@@ -98,7 +98,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
             description: post.metadata.summary,
             image: post.metadata.ogImage
               ? post.metadata.ogImage
-              : `${baseUrl}/yazzone-og.png`,
+              : `${baseUrl}/og?title=${encodeURIComponent(post.metadata.title)}`,
             url: `${baseUrl}/essays/${post.slug}`,
             author: {
               '@type': 'Person',
