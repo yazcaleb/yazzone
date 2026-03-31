@@ -34,6 +34,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title,
     description: summary,
+    ...(post.metadata.unlisted && { robots: { index: false, follow: false } }),
     alternates: {
       canonical: `${baseUrl}/essays/${post.slug}`,
     },
@@ -61,65 +62,12 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   }
 }
 
-// Static TL;DR dropdown component - CSS only, no JS
-function TldrDropdown({ title, slug }: { title: string; slug: string }) {
-  const pageUrl = `/essays/${slug}`
-  const prompt = `Read this page and summarize it in crisp bullet points: https://yaz.zone${pageUrl}
-
-Title: "${title}"
-
-Be direct—every bullet should carry weight. Include key arguments, facts, and conclusions. Skip filler. After summarizing, ask if I have questions.`
-
-  const encodedPrompt = encodeURIComponent(prompt)
-
-  return (
-    <details className="tldr-dropdown">
-      <summary>TL;DR</summary>
-      <div className="tldr-menu">
-        <div className="py-1">
-          <a
-            href={`https://chatgpt.com/?m=${encodedPrompt}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tldr-link"
-          >
-            ChatGPT
-            <span className="text-xs text-zinc-400">↗</span>
-          </a>
-          <a
-            href={`https://claude.ai/new?q=${encodedPrompt}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tldr-link"
-          >
-            Claude
-            <span className="text-xs text-zinc-400">↗</span>
-          </a>
-          <a
-            href={`https://www.perplexity.ai/search?q=${encodedPrompt}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tldr-link"
-          >
-            Perplexity
-            <span className="text-xs text-zinc-400">↗</span>
-          </a>
-        </div>
-        <div className="tldr-footer">
-          <p className="text-xs text-zinc-400 dark:text-zinc-500">
-            AI will read &amp; summarize this page
-          </p>
-        </div>
-      </div>
-    </details>
-  )
-}
 
 export default function Blog({ params }: { params: { slug: string } }) {
   let post = getEssay(params.slug)
   const allEssays = getEssays()
   const readNext = allEssays
-    .filter((e) => e.slug !== params.slug)
+    .filter((e) => e.slug !== params.slug && !e.metadata.unlisted)
     .sort((a, b) => new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime())
     .slice(0, 2)
 
@@ -191,13 +139,11 @@ export default function Blog({ params }: { params: { slug: string } }) {
         <CustomMDX source={post.content} />
       </article>
 
-      <TldrDropdown title={post.metadata.title} slug={post.slug} />
-
       <footer className="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800">
         <p className="text-[13px] text-zinc-400 dark:text-zinc-500 mb-6">
           &mdash;{' '}
           <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-            yaz
+            home
           </Link>
         </p>
         {readNext.length > 0 && (

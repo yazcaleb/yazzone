@@ -2,7 +2,8 @@
 title: "Minimum Viable Parents"
 publishedAt: "2025-12-29"
 summary: "The traits that make people build things and trauma responses are the same machinery."
-featured: true
+featured: false
+unlisted: true
 ---
 
 <figure class="lead-figure">

@@ -48,13 +48,10 @@ function CustomLink(props) {
 function RoundedImage(props) {
   return (
     <img
-      alt={props.alt}
-      src={props.src}
-      width={props.width}
-      height={props.height}
       loading="lazy"
       decoding="async"
-      className=""
+      {...props}
+      className={props.className ?? ''}
     />
   )
 }

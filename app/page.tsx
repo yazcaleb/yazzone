@@ -7,6 +7,7 @@ export const revalidate = 3600
 
 export default function Page() {
   const allEssays = getEssays()
+    .filter((e) => !e.metadata.unlisted)
     .sort((a, b) =>
       new Date(b.metadata.publishedAt).getTime() -
       new Date(a.metadata.publishedAt).getTime()
@@ -54,7 +55,6 @@ export default function Page() {
         </div>
 
         <div className="mb-6">
-          <p>&gt; building things, solving problems I put myself in, mostly</p>
           <p>&gt; <AgeCounter /></p>
         </div>
 
@@ -74,12 +74,13 @@ export default function Page() {
           <div>
             <p className="underline mb-4">now</p>
             <p>
-              &gt;{' '}
+              &gt;{' '}building{' '}
               <a href="https://veto.so" target="_blank" rel="noopener noreferrer">Veto</a>
-              {' '}at{' '}
+              <span className="text-zinc-400 dark:text-zinc-500"> &mdash; agent authorization &middot; </span>
               <a href="https://plaw.io" target="_blank" rel="noopener noreferrer">Plaw</a>
+              <span className="text-zinc-400 dark:text-zinc-500"> &mdash; programmable law</span>
             </p>
-            <p>&gt; research at ASU &mdash; AI / security / econ</p>
+            <p>&gt; <a href="/can-is-not-may.pdf" target="_blank" rel="noopener noreferrer">Can Is Not May</a><span className="text-zinc-400 dark:text-zinc-500"> &mdash; preprint &middot; ASU</span></p>
             <p>&gt; looking for founding team &mdash; <a href="mailto:team@plaw.io?subject=the%20best%20thing%20I%20ever%20built&amp;body=%0Askip%20the%20resume%20%E2%80%94%20what%20did%20you%20build%2C%20and%20why%20should%20we%20build%20together%3F%0A%0A" className="underline underline-offset-2 decoration-1">team@plaw.io</a></p>
             <p>&gt; raising pre-seed &mdash; <a href="https://cal.com/yaz/bet" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 decoration-1">schedule a call</a></p>
           </div>
@@ -108,11 +109,11 @@ export default function Page() {
           <div>
             <p className="mb-5">previously at / contributed to</p>
             <div className="space-y-0.5">
-              <p>&gt; <a href="https://cluely.com" target="_blank" rel="noopener noreferrer">Cluely</a></p>
+              <p>&gt; <a href="https://cluely.com" target="_blank" rel="noopener noreferrer">Cluely</a><span className="text-zinc-400 dark:text-zinc-500"> — one week</span></p>
               <p>&gt; <a href="https://thirdlayer.inc" target="_blank" rel="noopener noreferrer">ThirdLayer</a> (YC W25)</p>
               <p>&gt; Clade AI &mdash; shut down</p>
               <p>&gt; NASA Space Apps</p>
-              <p>&gt; early GPT-3 / DALL&middot;E access, TED-Ed talk</p>
+              <p>&gt; TED-Ed talk</p>
               <p>&gt; <span className="text-zinc-400 dark:text-zinc-500">...and a few that didn&apos;t make it</span></p>
             </div>
           </div>

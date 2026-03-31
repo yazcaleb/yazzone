@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 
 export default function EssaysPage() {
   const essays = getEssays()
+    .filter((e) => !e.metadata.unlisted)
     .sort((a, b) => {
       if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
         return -1
@@ -59,7 +60,7 @@ export default function EssaysPage() {
           href="/"
           className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors text-[12px]"
         >
-          &larr; yaz
+          &larr; home
         </Link>
       </div>
 

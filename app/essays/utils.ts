@@ -11,6 +11,7 @@ export type Metadata = {
   slug?: string
   readingTime: string
   featured?: boolean
+  unlisted?: boolean
 }
 
 function parseFrontmatter(fileContent: string) {
@@ -68,15 +69,6 @@ export function getEssay(slug: string) {
   }
 
   return essay;
-}
-
-export function getHomepageData() {
-  const filePath = path.join(process.cwd(), 'data', 'home.md');
-  const { metadata, content } = readMDXFile(filePath);
-  return {
-    projects: (metadata as any).projects || [],
-    now: content.replace(/—/g, ' - '),
-  }
 }
 
 export function getBackstoryData() {

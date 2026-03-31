@@ -5,7 +5,7 @@ export const baseUrl = 'https://yaz.zone'
 export default async function sitemap() {
   let allEssays = getEssays()
 
-  let essays = allEssays.map((post) => ({
+  let essays = allEssays.filter((p) => !p.metadata.unlisted).map((post) => ({
     url: `${baseUrl}/essays/${post.slug}`,
     lastModified: new Date(post.metadata.publishedAt).toISOString().split('T')[0],
     changeFrequency: 'monthly' as const,

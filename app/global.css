@@ -8,6 +8,7 @@
 
 /* Light mode defaults */
 :root {
+  color-scheme: light dark;
   --cg-empty: #f4f4f5;
   --cg-l1: #d4d4d8;
   --cg-l2: #a1a1aa;
@@ -314,7 +315,15 @@ a:hover {
   @apply my-6 text-center;
 }
 .lead-figure img {
-  @apply inline-block max-w-[480px] w-full;
+  @apply inline-block max-w-full w-full;
+}
+.lead-figure img[src*="cover-dither"] {
+  mix-blend-mode: multiply;
+}
+@media (prefers-color-scheme: dark) {
+  .lead-figure img[src*="cover-dither"] {
+    mix-blend-mode: screen;
+  }
 }
 .lead-figure em {
   @apply block mt-2 text-sm text-neutral-600 not-italic;
@@ -539,57 +548,6 @@ details[open] > summary {
   display: block;
 }
 
-/* ============================================
-   TL;DR DROPDOWN - CSS-ONLY
-   ============================================ */
-.tldr-dropdown {
-  @apply fixed bottom-6 right-6 z-40;
-}
-
-.tldr-dropdown summary {
-  @apply bg-white/90 backdrop-blur-sm border border-black/10 px-5 py-3 rounded-md shadow-lg text-sm font-medium text-black/80 hover:text-black hover:shadow-xl transition-all cursor-pointer list-none select-none;
-}
-
-@media (prefers-color-scheme: dark) {
-  .tldr-dropdown summary {
-    @apply bg-black/90 border-white/10 text-white/80 hover:text-white;
-  }
-}
-
-.tldr-dropdown[open] summary {
-  @apply shadow-xl;
-  margin-bottom: 0; /* Override global details[open] margin */
-}
-
-.tldr-dropdown .tldr-menu {
-  @apply absolute right-0 bottom-full mb-2 w-48 rounded-lg bg-white shadow-xl ring-1 ring-black/10 overflow-hidden;
-}
-
-@media (prefers-color-scheme: dark) {
-  .tldr-dropdown .tldr-menu {
-    @apply bg-black ring-white/10;
-  }
-}
-
-.tldr-dropdown .tldr-link {
-  @apply flex items-center justify-between w-full px-4 py-3 text-sm text-zinc-700 hover:bg-zinc-100 transition-colors;
-}
-
-@media (prefers-color-scheme: dark) {
-  .tldr-dropdown .tldr-link {
-    @apply text-zinc-300 hover:bg-zinc-900;
-  }
-}
-
-.tldr-dropdown .tldr-footer {
-  @apply border-t border-zinc-200 px-4 py-2;
-}
-
-@media (prefers-color-scheme: dark) {
-  .tldr-dropdown .tldr-footer {
-    @apply border-zinc-800;
-  }
-}
 
 /* ============================================
    NATIVE IMAGE OPTIMIZATION
