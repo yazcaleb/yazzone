@@ -7,10 +7,17 @@ export type Metadata = {
   publishedAt: string
   summary: string
   ogImage?: string
+  ogImageWidth?: number
+  ogImageHeight?: number
   image?: string
+  imageAlt?: string
+  imageCaption?: string
+  imageWidth?: number
+  imageHeight?: number
   slug?: string
   readingTime: string
   featured?: boolean
+  pinned?: boolean
   unlisted?: boolean
 }
 

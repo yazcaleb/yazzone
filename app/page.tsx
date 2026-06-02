@@ -2,13 +2,15 @@ import Link from 'next/link'
 import { getEssays } from 'app/essays/utils'
 import AgeCounter from 'app/components/AgeCounter'
 import ContribGraph from 'app/components/ContribGraph'
+import { formatDate } from 'app/lib/format'
 
 export const revalidate = 3600
 
 export default function Page() {
-  const allEssays = getEssays()
+  const essays = getEssays()
     .filter((e) => !e.metadata.unlisted)
     .sort((a, b) =>
+      Number(Boolean(b.metadata.pinned)) - Number(Boolean(a.metadata.pinned)) ||
       new Date(b.metadata.publishedAt).getTime() -
       new Date(a.metadata.publishedAt).getTime()
     )
@@ -121,21 +123,19 @@ export default function Page() {
         {/* Essays */}
         <div className="mb-4">
           <p className="underline mb-4">recent writing</p>
-          {allEssays.map((post) => {
-            const [y, m] = post.metadata.publishedAt.split('-')
-            const mon = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[+m - 1]
-            return (
-              <p key={post.slug} className="flex items-baseline justify-between gap-3">
-                <span>
-                  &gt;{' '}
-                  <Link href={`/essays/${post.slug}`}>
-                    {post.metadata.title}
-                  </Link>
-                </span>
-                <span className="text-[11px] text-zinc-400 dark:text-zinc-500 shrink-0">{mon} {y}</span>
-              </p>
-            )
-          })}
+          {essays.map((post) => (
+            <p key={post.slug} className="flex items-baseline justify-between gap-3">
+              <span>
+                &gt;{' '}
+                <Link href={`/essays/${post.slug}`}>
+                  {post.metadata.title}
+                </Link>
+              </span>
+              <span className="text-[11px] text-zinc-400 dark:text-zinc-500 shrink-0">
+                {formatDate(post.metadata.publishedAt, true)}
+              </span>
+            </p>
+          ))}
         </div>
 
         <div className="flex-1" />

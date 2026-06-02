@@ -6,6 +6,30 @@ import { formatDate } from 'app/lib/format'
 import { baseUrl } from 'app/sitemap'
 import type { Metadata } from 'next'
 
+function getEssayImageUrl(metadata: {
+  title: string
+  ogImage?: string
+  image?: string
+}) {
+  if (metadata.ogImage) {
+    return metadata.ogImage.startsWith('http')
+      ? metadata.ogImage
+      : `${baseUrl}${metadata.ogImage}`
+  }
+
+  if (metadata.image) {
+    return metadata.image.startsWith('http')
+      ? metadata.image
+      : `${baseUrl}${metadata.image}`
+  }
+
+  return `${baseUrl}/og?title=${encodeURIComponent(metadata.title)}`
+}
+
+function getImageAlt(metadata: { title: string; imageAlt?: string }) {
+  return metadata.imageAlt || metadata.title
+}
+
 export async function generateStaticParams() {
   let posts = getEssays()
 
@@ -21,15 +45,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     return undefined
   }
 
-  let {
-    title,
-    publishedAt: publishedTime,
-    summary,
-    ogImage,
-  } = post.metadata
-  let finalOgImage = ogImage
-    ? ogImage
-    : `${baseUrl}/og?title=${encodeURIComponent(title)}`
+  let { title, publishedAt: publishedTime, summary } = post.metadata
+  let finalOgImage = getEssayImageUrl(post.metadata)
 
   return {
     title,
@@ -47,9 +64,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       images: [
         {
           url: finalOgImage,
-          width: 1200,
-          height: 630,
-          alt: title,
+          width: post.metadata.ogImageWidth || 1200,
+          height: post.metadata.ogImageHeight || 630,
+          alt: getImageAlt(post.metadata),
         },
       ],
     },
@@ -65,6 +82,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
 export default function Blog({ params }: { params: { slug: string } }) {
   let post = getEssay(params.slug)
+  let essayImage = post ? getEssayImageUrl(post.metadata) : undefined
   const allEssays = getEssays()
   const readNext = allEssays
     .filter((e) => e.slug !== params.slug && !e.metadata.unlisted)
@@ -96,9 +114,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
             datePublished: post.metadata.publishedAt,
             dateModified: post.metadata.publishedAt,
             description: post.metadata.summary,
-            image: post.metadata.ogImage
-              ? post.metadata.ogImage
-              : `${baseUrl}/og?title=${encodeURIComponent(post.metadata.title)}`,
+            image: essayImage,
             url: `${baseUrl}/essays/${post.slug}`,
             author: {
               '@type': 'Person',
@@ -125,12 +141,17 @@ export default function Blog({ params }: { params: { slug: string } }) {
           <div className="mt-8">
             <img
               src={post.metadata.image}
-              alt={post.metadata.title}
-              width={1280}
-              height={720}
+              alt={getImageAlt(post.metadata)}
+              width={post.metadata.imageWidth || 1280}
+              height={post.metadata.imageHeight || 720}
               decoding="async"
               className="w-full h-auto"
             />
+            {post.metadata.imageCaption && (
+              <p className="mt-2 text-[11px] text-zinc-400 dark:text-zinc-500">
+                {post.metadata.imageCaption}
+              </p>
+            )}
           </div>
         )}
       </header>

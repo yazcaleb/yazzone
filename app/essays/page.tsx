@@ -30,6 +30,11 @@ export default function EssaysPage() {
   const essays = getEssays()
     .filter((e) => !e.metadata.unlisted)
     .sort((a, b) => {
+      const pinnedDiff = Number(Boolean(b.metadata.pinned)) - Number(Boolean(a.metadata.pinned))
+      if (pinnedDiff !== 0) {
+        return pinnedDiff
+      }
+
       if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
         return -1
       }
