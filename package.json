@@ -27,7 +27,10 @@
     "yazzone": "link:"
   },
   "devDependencies": {
-    "esbuild-register": "^3.6.0"
+    "@cloudflare/next-on-pages": "1.13.16",
+    "@cloudflare/workers-types": "4.20240208.0",
+    "esbuild-register": "^3.6.0",
+    "wrangler": "3.114.15"
   },
   "browserslist": [
     "Chrome >= 92",
