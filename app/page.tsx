@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getEssays } from 'app/essays/utils'
 import AgeCounter from 'app/components/AgeCounter'
 import ContribGraph from 'app/components/ContribGraph'
+import AsciiBackdrop from 'app/components/AsciiBackdrop'
 import { formatDate } from 'app/lib/format'
 
 export const revalidate = 3600
@@ -39,11 +40,13 @@ export default function Page() {
         }}
       />
 
-      <div className="homepage-minimal max-w-[560px] mx-auto font-serif text-[14px] leading-[1.38] text-zinc-900 dark:text-zinc-100 min-h-[calc(100vh-5rem)] flex flex-col">
+      <AsciiBackdrop />
+
+      <div className="homepage-minimal relative z-10 max-w-[560px] mx-auto font-serif text-[14px] leading-[1.38] text-zinc-900 dark:text-zinc-100 min-h-[calc(100vh-5rem)] flex flex-col">
         {/* Header */}
         <div className="flex items-start justify-between mb-7">
           <div>
-            <h1 className="text-[14px] font-normal leading-[1.38]">Hi, I&apos;m Yaz.</h1>
+            <h1 className="text-[14px] font-normal leading-[1.38]">hi, i&apos;m yaz.</h1>
             <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">Yaz Caleb / Yaz Celebi / Ya&#287;&#305;z Erkam &Ccedil;elebi</p>
           </div>
           <img
@@ -64,11 +67,10 @@ export default function Page() {
           Turkish-Albanian. I like Camus, Orwell, tennis and isolation lifts.
         </p>
         <p className="mb-7">
-          but I spend most of my time on authorization for autonomous
-          systems &mdash; agents call APIs, move money, sign contracts,
-          and nobody has a good answer for who gets to say yes. I think
-          the system that acts needs to be accountable before it acts,
-          not after.
+          I build companies and the software inside them. Right now, that
+          means authorization for autonomous systems: agents call APIs,
+          move money and sign contracts, but nobody has a good answer for
+          who gets to say yes. Veto is my answer.
         </p>
 
         {/* Now + photo */}

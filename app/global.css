@@ -584,4 +584,43 @@ img[width][height] {
 }
 .homepage-minimal img {
   border-radius: 1px;
+  outline: 1px solid oklch(0 0 0 / 0.1);
+  outline-offset: -1px;
+}
+
+.ascii-backdrop {
+  z-index: 0;
+  opacity: 0.1;
+  filter: blur(0.45px);
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 32%, rgba(0, 0, 0, 0.3) 65%, black 100%);
+  mask-image: radial-gradient(ellipse at center, transparent 32%, rgba(0, 0, 0, 0.3) 65%, black 100%);
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .homepage-minimal img {
+    outline-color: oklch(1 0 0 / 0.1);
+  }
+
+  .ascii-backdrop {
+    opacity: 0.09;
+    mix-blend-mode: screen;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
