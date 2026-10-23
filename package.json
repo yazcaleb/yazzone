@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "0.0.82",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "20.11.17",
     "@types/react": "18.2.55",

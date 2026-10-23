@@ -3,9 +3,25 @@ import { getEssays } from 'app/essays/utils'
 import AgeCounter from 'app/components/AgeCounter'
 import ContribGraph from 'app/components/ContribGraph'
 import AsciiBackdrop from 'app/components/AsciiBackdrop'
+import PaperPage from 'app/components/PaperPage'
 import { formatDate } from 'app/lib/format'
+import { baseUrl } from 'app/sitemap'
 
 export const revalidate = 3600
+
+const external = { target: '_blank', rel: 'noopener noreferrer' }
+
+const previously = [
+  { name: 'Clade AI', note: 'Founder, 30+ people, shut down' },
+  { name: 'ThirdLayer', note: 'YC W25', href: 'https://thirdlayer.inc' },
+  { name: 'Cluely', note: 'One week', href: 'https://cluely.com' },
+  { name: 'NASA Space Apps', note: 'Mentor, 2023', href: 'https://www.spaceappschallenge.org/2023/' },
+  { name: 'TED-Ed', note: 'Talk on terms and conditions' },
+]
+
+function Label({ children }: { children: React.ReactNode }) {
+  return <h2 className="font-sans text-[14px] leading-5 text-label">{children}</h2>
+}
 
 export default function Page() {
   const essays = getEssays()
@@ -15,7 +31,7 @@ export default function Page() {
       new Date(b.metadata.publishedAt).getTime() -
       new Date(a.metadata.publishedAt).getTime()
     )
-    .slice(0, 3)
+    .slice(0, 5)
 
   return (
     <>
@@ -28,8 +44,8 @@ export default function Page() {
             '@type': 'Person',
             name: 'Yaz Caleb',
             alternateName: ['Yaz A. Caleb', 'Yagiz Erkam Celebi'],
-            url: 'https://yaz.md',
-            image: 'https://yaz.md/yaz-latest.webp',
+            url: baseUrl,
+            image: `${baseUrl}/yaz-latest.webp`,
             description: 'Builder. Founder of Veto and Plaw. Essays on AI, infrastructure, and compounding conviction.',
             jobTitle: 'Cofounder & CEO',
             worksFor: { '@type': 'Organization', name: 'Plaw Inc.', url: 'https://plaw.io' },
@@ -42,113 +58,201 @@ export default function Page() {
 
       <AsciiBackdrop />
 
-      <div className="homepage-minimal relative z-10 max-w-[560px] mx-auto font-serif text-[14px] leading-[1.38] text-zinc-900 dark:text-zinc-100 min-h-[calc(100vh-5rem)] flex flex-col">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-7">
-          <div>
-            <h1 className="text-[14px] font-normal leading-[1.38]">hi, i&apos;m yaz.</h1>
-            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">Yaz Caleb / Yaz Celebi / Ya&#287;&#305;z Erkam &Ccedil;elebi</p>
-          </div>
+      <div className="relative z-10 mx-auto max-w-[600px] font-serif text-[15px] leading-[25px] text-graphite">
+        <header>
           <img
             src="/avatar-192.webp"
             alt="Yaz Caleb"
-            width={20}
-            height={20}
-            className="rounded-[2px] mt-0.5"
+            width={36}
+            height={36}
+            className="frame size-9 rounded-lg"
             decoding="async"
           />
+          <h1 className="mt-5 text-[17px] font-medium leading-[26px] tracking-[-0.01em] text-ink">
+            Yaz Caleb
+          </h1>
+          <p className="font-sans text-[13px] leading-5 text-label">
+            Yaz Celebi / Ya&#287;&#305;z Erkam &Ccedil;elebi
+          </p>
+        </header>
+
+        <div className="mt-7 space-y-3.5">
+          <p>
+            I build companies and the software inside them. Right now that means
+            authorization for autonomous systems: agents call APIs, move money and
+            sign contracts, but nobody has a good answer for who gets to say yes.{' '}
+            <a href="https://veto.so" {...external} className="link text-ink">Veto</a> is my answer.
+          </p>
+          <p>
+            Turkish-Albanian, grew up in Ankara. Self-taught, finished high school
+            three years early. I like Camus, Orwell, tennis and isolation lifts.
+          </p>
         </div>
 
-        <div className="mb-6">
-          <p>&gt; <AgeCounter /></p>
-        </div>
-
-        <p className="mb-1">
-          Turkish-Albanian. I like Camus, Orwell, tennis and isolation lifts.
+        <p className="mt-3.5 flex items-baseline gap-2">
+          <span className="font-sans text-[13px] text-label">Age</span>
+          <span className="text-[14px] text-ink">
+            <AgeCounter />
+          </span>
         </p>
-        <p className="mb-7">
-          I build companies and the software inside them. Right now, that
-          means authorization for autonomous systems: agents call APIs,
-          move money and sign contracts, but nobody has a good answer for
-          who gets to say yes. Veto is my answer.
-        </p>
 
-        {/* Now + photo */}
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_220px] gap-4 mb-8 items-start">
-          <div>
-            <p className="underline mb-4">now</p>
-            <p>
-              &gt;{' '}building{' '}
-              <a href="https://veto.so" target="_blank" rel="noopener noreferrer">Veto</a>
-              <span className="text-zinc-400 dark:text-zinc-500"> &mdash; agent authorization /</span>
-              <a href="https://plaw.io" target="_blank" rel="noopener noreferrer">P<span className="text-zinc-400 dark:text-zinc-500">(rogrammable)</span>law, Inc.</a>
-            </p>
-            <p>&gt; <a href="/can-is-not-may.pdf" target="_blank" rel="noopener noreferrer">Can Is Not May</a><span className="text-zinc-400 dark:text-zinc-500"> &mdash; preprint / ASU</span></p>
-            <p>&gt; looking for founding team &mdash; <a href="mailto:team@plaw.io?subject=the%20best%20thing%20I%20ever%20built&amp;body=%0Askip%20the%20resume%20%E2%80%94%20what%20did%20you%20build%2C%20and%20why%20should%20we%20build%20together%3F%0A%0A" className="underline underline-offset-2 decoration-1">team@plaw.io</a></p>
-            <p>&gt; raising pre-seed &mdash; <a href="https://cal.com/yaz/bet" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 decoration-1">schedule a call</a></p>
-          </div>
-          <img
-            src="/yazpic2-sm.webp"
-            alt="Yaz Caleb"
-            width={800}
-            height={480}
-            className="w-full h-auto object-cover object-[center_20%] grayscale contrast-[1.15] sm:-mt-4"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
+        <nav aria-label="Elsewhere" className="mt-[22px] flex flex-wrap gap-x-[22px] gap-y-2 font-sans text-[14px] leading-5 text-ink">
+          <a href="https://x.com/yazcal" {...external} className="link">X</a>
+          <a href="https://github.com/yazcaleb" {...external} className="link">GitHub</a>
+          <a href="mailto:y@plaw.inc?subject=hey&amp;body=(via%20yaz.md)%0A%0A" className="link">Email</a>
+          <Link href="/essays" className="link">Essays</Link>
+          <a href="/feed.xml" className="link">RSS</a>
+        </nav>
 
-        {/* Past + photo */}
-        <div className="grid grid-cols-[105px_1fr] gap-6 mb-7 items-start">
-          <img
-            src="/maggie.webp"
-            alt="Maggie"
-            width={451}
-            height={800}
-            className="w-full h-[140px] object-cover object-center contrast-[1.05]"
-            loading="lazy"
-            decoding="async"
-          />
-          <div>
-            <p className="mb-5">previously at / contributed to</p>
-            <div className="space-y-0.5">
-              <p>&gt; <a href="https://cluely.com" target="_blank" rel="noopener noreferrer">Cluely</a><span className="text-zinc-400 dark:text-zinc-500"> — one week</span></p>
-              <p>&gt; <a href="https://thirdlayer.inc" target="_blank" rel="noopener noreferrer">ThirdLayer</a> (YC W25)</p>
-              <p>&gt; Clade AI &mdash; shut down</p>
-              <p>&gt; NASA Space Apps</p>
-              <p>&gt; TED-Ed talk</p>
-              <p>&gt; <span className="text-zinc-400 dark:text-zinc-500">...and a few that didn&apos;t make it</span></p>
+        <section className="mt-16 sm:mt-24">
+          <Label>Now</Label>
+
+          <a href="https://veto.so" {...external} className="mt-5 flex aspect-[3/2] justify-center overflow-hidden rounded-[14px] bg-shelf px-6 pt-7 sm:aspect-[600/316] sm:pt-10" aria-label="Veto, runtime authorization for AI agents">
+            <picture className="block w-full sm:w-[80%]">
+              <source srcSet="/images/home/veto-dark.webp" media="(prefers-color-scheme: dark)" />
+              <img
+                src="/images/home/veto-light.webp"
+                alt="The veto.so homepage: Stop risky AI actions before they happen."
+                width={1200}
+                height={750}
+                loading="lazy"
+                decoding="async"
+                className="frame w-full rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.06),0_12px_32px_rgba(0,0,0,0.08)]"
+              />
+            </picture>
+          </a>
+          <h3 className="mt-[18px] font-medium leading-6 text-ink">
+            <a href="https://veto.so" {...external}>Veto</a>
+          </h3>
+          <p className="mt-1 leading-6">
+            Runtime authorization for AI agents. Veto checks risky actions before
+            money moves, data leaves, records change or a customer gets contacted.
+            Built at{' '}
+            <a href="https://plaw.io" {...external} className="link whitespace-nowrap text-ink">Plaw, Inc.</a>
+          </p>
+
+          <a href="/can-is-not-may.pdf" {...external} className="mt-11 flex justify-center overflow-hidden rounded-[14px] bg-shelf px-10 pt-7 sm:pt-10 aspect-[3/2] sm:aspect-[600/316]" aria-label="Can Is Not May, preprint (PDF)">
+            <div className="w-[75%] sm:w-[60%]">
+              <PaperPage
+                src="/images/home/can-is-not-may-p1.webp"
+                alt="First page of the preprint Can Is Not May: Authority Models for Governable AI Agents"
+              />
+            </div>
+          </a>
+          <h3 className="mt-[18px] font-medium leading-6 text-ink">
+            <a href="/can-is-not-may.pdf" {...external}>Can Is Not May</a>
+          </h3>
+          <p className="mt-1 leading-6">
+            My preprint on authority models. Across 7,427 trials, prompt-only
+            guardrails let agents take unauthorized actions 18.3% of the time; an
+            external authority model let through none. Plaw and Arizona State
+            University, March 2026.
+          </p>
+
+          <div className="mt-9 border-b border-hairline">
+            <div className="flex items-baseline justify-between gap-4 border-t border-hairline py-[13px]">
+              <span className="text-ink">Looking for a founding team</span>
+              <a
+                href="mailto:office@plaw.inc?subject=the%20best%20thing%20I%20ever%20built&amp;body=%0Askip%20the%20resume%3A%20what%20did%20you%20build%2C%20and%20why%20should%20we%20build%20together%3F%0A%0A"
+                className="link shrink-0 font-sans text-[14px] leading-5"
+              >
+                office@plaw.inc
+              </a>
+            </div>
+            <div className="flex items-baseline justify-between gap-4 border-t border-hairline py-[13px]">
+              <span className="text-ink">Raising a pre-seed round</span>
+              <a href="https://cal.com/yaz/bet" {...external} className="link shrink-0 font-sans text-[14px] leading-5">
+                Schedule a call
+              </a>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Essays */}
-        <div className="mb-4">
-          <p className="underline mb-4">recent writing</p>
-          {essays.map((post) => (
-            <p key={post.slug} className="flex items-baseline justify-between gap-3">
-              <span>
-                &gt;{' '}
-                <Link href={`/essays/${post.slug}`}>
-                  {post.metadata.title}
+        <section className="mt-16 sm:mt-[88px]">
+          <Label>Writing</Label>
+          <ul className="mt-3">
+            {essays.map((post) => (
+              <li key={post.slug}>
+                <Link
+                  href={`/essays/${post.slug}`}
+                  className="group flex items-baseline justify-between gap-6 py-3 text-ink hover:no-underline"
+                >
+                  <span className="group-hover:underline group-hover:underline-offset-4">{post.metadata.title}</span>
+                  <span className="shrink-0 font-sans text-[14px] leading-5 text-label tabular-nums">
+                    {formatDate(post.metadata.publishedAt, true)}
+                  </span>
                 </Link>
-              </span>
-              <span className="text-[11px] text-zinc-400 dark:text-zinc-500 shrink-0">
-                {formatDate(post.metadata.publishedAt, true)}
-              </span>
-            </p>
-          ))}
-        </div>
+              </li>
+            ))}
+          </ul>
+          <Link href="/essays" className="link mt-3 inline-block font-sans text-[14px] leading-5">
+            All essays
+          </Link>
+        </section>
 
-        <div className="flex-1" />
+        <section className="mt-16 sm:mt-[88px]">
+          <Label>Previously</Label>
+          <dl className="mt-3">
+            {previously.map((item) => (
+              <div key={item.name} className="flex items-baseline gap-6 py-2.5">
+                <dt className="w-32 shrink-0 text-ink sm:w-[180px]">
+                  {item.href ? <a href={item.href} {...external}>{item.name}</a> : item.name}
+                </dt>
+                <dd>{item.note}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
 
-        <ContribGraph />
+        <section className="mt-16 flex items-start gap-4 sm:mt-[88px]" aria-label="Photos">
+          <figure className="w-[62%] sm:w-[384px]">
+            <img
+              src="/yazpic2-sm.webp"
+              alt="Yaz as a kid in a GAP sweatshirt"
+              width={800}
+              height={480}
+              loading="lazy"
+              decoding="async"
+              className="frame h-[196px] w-full rounded-[10px] object-cover object-[center_20%] grayscale transition-[filter] duration-300 hover:grayscale-0 sm:h-[256px]"
+            />
+            <figcaption className="mt-2.5 font-sans text-[13px] leading-[18px] text-label">Before the companies.</figcaption>
+          </figure>
+          <figure className="flex-1">
+            <img
+              src="/maggie.webp"
+              alt="Princess Maggie, a labrador, mid-yawn"
+              width={451}
+              height={800}
+              loading="lazy"
+              decoding="async"
+              className="frame h-[196px] w-full rounded-[10px] object-cover grayscale transition-[filter] duration-300 hover:grayscale-0 sm:h-[256px]"
+            />
+            <figcaption className="mt-2.5 font-sans text-[13px] leading-[18px] text-label">Princess Maggie, 8.</figcaption>
+          </figure>
+        </section>
 
-        <footer className="flex items-center justify-between mt-1">
-          <a href="https://x.com/yazcal" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">x</a>
-          <Link href="/essays">essays</Link>
-          <a href="https://github.com/yazcaleb" target="_blank" rel="noopener noreferrer">github</a>
-          <a href="mailto:y@plaw.io?subject=hey&amp;body=(via%20yaz.md)%0A%0A">y@plaw.io</a>
+        <a
+          href="https://cal.com/yaz/bet"
+          {...external}
+          aria-label="Better call Yaz: schedule a call"
+          className="mt-16 block w-[168px] -rotate-3 text-ink opacity-90 transition-opacity hover:opacity-100 sm:mt-[88px]"
+        >
+          <span
+            aria-hidden="true"
+            className="block aspect-[2048/983] bg-current"
+            style={{
+              WebkitMask: 'url(/better-call-yaz.svg) center / contain no-repeat',
+              mask: 'url(/better-call-yaz.svg) center / contain no-repeat',
+            }}
+          />
+        </a>
+
+        <footer className="mt-12">
+          <ContribGraph />
+          <div className="mt-5 flex flex-wrap justify-between gap-2 border-t border-hairline pt-4 font-sans text-[13px] leading-[18px] text-label">
+            <span>Yaz Caleb, {new Date().getFullYear()}</span>
+            <span>Set in Literata and Atkinson Hyperlegible</span>
+          </div>
         </footer>
       </div>
     </>

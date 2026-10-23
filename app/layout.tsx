@@ -98,9 +98,9 @@ export default function RootLayout({
       className={`${atkinson.variable} ${literata.variable}`}
     >
 
-      <body className="antialiased max-w-6xl mx-4 sm:mx-8 mt-12 lg:mx-auto font-sans">
+      <body className="antialiased font-sans">
         <a id="top" aria-hidden="true" />
-        <main className="flex-auto min-w-0 mt-8 flex flex-col px-2 sm:px-4 md:px-8">
+        <main className="min-w-0 px-6 pt-16 pb-14 sm:pt-28 sm:pb-24">
           {children}
         </main>
       </body>

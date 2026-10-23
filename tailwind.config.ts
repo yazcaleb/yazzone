@@ -9,6 +9,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        wall: 'var(--wall)',
+        shelf: 'var(--shelf)',
+        ink: 'var(--ink)',
+        graphite: 'var(--graphite)',
+        label: 'var(--label)',
+        hairline: 'var(--hairline)',
+      },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
         serif: ['var(--font-serif)', 'Georgia', 'serif'],

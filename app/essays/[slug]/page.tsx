@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import SiteHeader from 'app/components/SiteHeader'
 import { CustomMDX } from 'app/components/mdx'
 import { getEssays, getEssay } from 'app/essays/utils'
 import { formatDate } from 'app/lib/format'
@@ -94,15 +95,8 @@ export default function Blog({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <section className="max-w-[640px] mx-auto font-serif text-zinc-900 dark:text-zinc-100">
-      <div className="mb-7">
-        <Link
-          href="/essays"
-          className="text-[12px] text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-        >
-          &larr; essays
-        </Link>
-      </div>
+    <section className="mx-auto max-w-[600px] font-serif text-ink">
+      <SiteHeader trail={{ href: '/essays', label: 'Essays' }} />
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -119,69 +113,72 @@ export default function Blog({ params }: { params: { slug: string } }) {
             author: {
               '@type': 'Person',
               name: 'Yaz Caleb',
-              url: 'https://yaz.md',
+              url: baseUrl,
               sameAs: ['https://x.com/yazcal', 'https://github.com/yazcaleb'],
             },
           }),
         }}
       />
 
-      <header className="mb-10">
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight mb-4 text-black dark:text-white">
+      <header className="mt-14 mb-10">
+        <h1 className="title text-[25px] font-medium leading-8 tracking-[-0.015em] text-ink sm:text-[30px] sm:leading-[38px]">
           {post.metadata.title}
         </h1>
-        <div className="flex items-center gap-3 text-[12px] text-zinc-400 dark:text-zinc-500">
-          <time dateTime={post.metadata.publishedAt}>
-            {formatDate(post.metadata.publishedAt)}
-          </time>
-          <span>/</span>
+        <p className="mt-3 text-[17px] leading-[27px] text-graphite">{post.metadata.summary}</p>
+        <p className="mt-4 flex gap-4 font-sans text-[13px] leading-5 text-label">
+          <time dateTime={post.metadata.publishedAt}>{formatDate(post.metadata.publishedAt)}</time>
           <span>{post.metadata.readingTime}</span>
-        </div>
-        {post.metadata.image && (
-          <div className="mt-8">
+        </p>
+      </header>
+
+      {post.metadata.image && (
+        <figure className="mb-11">
+          <div className="relative aspect-[342/300] rounded-[14px] bg-shelf sm:aspect-[600/440]">
             <img
               src={post.metadata.image}
               alt={getImageAlt(post.metadata)}
               width={post.metadata.imageWidth || 1280}
               height={post.metadata.imageHeight || 720}
               decoding="async"
-              className="w-full h-auto"
+              className="absolute inset-0 m-auto h-auto max-h-[calc(100%_-_52px)] w-auto max-w-[calc(100%_-_52px)] shadow-[0_1px_2px_rgba(0,0,0,0.08),0_16px_40px_rgba(0,0,0,0.1)] sm:max-h-[calc(100%_-_64px)] sm:max-w-[calc(100%_-_64px)]"
             />
-            {post.metadata.imageCaption && (
-              <p className="mt-2 text-[11px] text-zinc-400 dark:text-zinc-500">
-                {post.metadata.imageCaption}
-              </p>
-            )}
           </div>
-        )}
-      </header>
+          {post.metadata.imageCaption && (
+            <figcaption className="mt-2.5 font-sans text-[13px] leading-[18px] text-label">
+              {post.metadata.imageCaption}
+            </figcaption>
+          )}
+        </figure>
+      )}
 
       <article className="prose">
         <CustomMDX source={post.content} />
       </article>
 
-      <footer className="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800">
-        <p className="text-[13px] text-zinc-400 dark:text-zinc-500 mb-6">
-          &mdash;{' '}
-          <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-            home
-          </Link>
-        </p>
+      <footer className="mt-16 border-t border-hairline pt-6">
         {readNext.length > 0 && (
-          <nav className="space-y-1 text-[13px]">
-            {readNext.map((e) => (
-              <p key={e.slug}>
-                &gt;{' '}
-                <Link
-                  href={`/essays/${e.slug}`}
-                  className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-                >
-                  {e.metadata.title}
-                </Link>
-              </p>
-            ))}
+          <nav aria-label="Read next">
+            <h2 className="font-sans text-[14px] leading-5 text-label">Read next</h2>
+            <ul className="mt-2">
+              {readNext.map((e) => (
+                <li key={e.slug}>
+                  <Link
+                    href={`/essays/${e.slug}`}
+                    className="group flex items-baseline justify-between gap-6 py-3 text-[15px] leading-6 text-ink hover:no-underline"
+                  >
+                    <span className="group-hover:underline group-hover:underline-offset-4">{e.metadata.title}</span>
+                    <span className="shrink-0 font-sans text-[14px] leading-5 text-label tabular-nums">
+                      {formatDate(e.metadata.publishedAt, true)}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
         )}
+        <Link href="/" className="link mt-4 inline-block font-sans text-[14px] leading-5 text-graphite">
+          Home
+        </Link>
       </footer>
     </section>
   )

@@ -9,11 +9,19 @@
 /* Light mode defaults */
 :root {
   color-scheme: light dark;
-  --cg-empty: #f4f4f5;
-  --cg-l1: #d4d4d8;
-  --cg-l2: #a1a1aa;
-  --cg-l3: #52525b;
-  --cg-l4: #18181b;
+  --wall: #ffffff;
+  --shelf: #f3f3f1;
+  --ink: #111111;
+  --copy: #2b2a27;
+  --graphite: #55534e;
+  --label: #6f6d68;
+  --hairline: #ededeb;
+  --rule: #b5b3ae;
+  --cg-empty: #f2f2f0;
+  --cg-l1: #dcdbd8;
+  --cg-l2: #a9a7a2;
+  --cg-l3: #55534e;
+  --cg-l4: #111111;
   --sh-class: #000;
   --sh-identifier: #000;
   --sh-sign: #000;
@@ -28,7 +36,8 @@
 html {
   min-width: 360px;
   scroll-behavior: smooth;
-  @apply bg-white text-zinc-900;
+  background-color: var(--wall);
+  color: var(--ink);
 }
 
 /* Ensure page starts at top on load */
@@ -39,11 +48,19 @@ html:focus-within {
 /* Dark mode via system preference */
 @media (prefers-color-scheme: dark) {
   :root {
-    --cg-empty: #27272a;
-    --cg-l1: #3f3f46;
-    --cg-l2: #71717a;
-    --cg-l3: #a1a1aa;
-    --cg-l4: #e4e4e7;
+    --wall: #0f0f0e;
+    --shelf: #1a1a19;
+    --ink: #ededeb;
+    --copy: #d6d4ce;
+    --graphite: #a3a19b;
+    --label: #8a8883;
+    --hairline: #242422;
+    --rule: #55534e;
+    --cg-empty: #1c1c1b;
+    --cg-l1: #2e2d2b;
+    --cg-l2: #575550;
+    --cg-l3: #a3a19b;
+    --cg-l4: #ededeb;
     --sh-class: #fff;
     --sh-identifier: #fff;
     --sh-sign: #fff;
@@ -53,10 +70,6 @@ html:focus-within {
     --sh-jsxliterals: #fff;
     --sh-property: #fff;
     --sh-entity: #fff;
-  }
-
-  html {
-    @apply bg-zinc-900 text-zinc-200;
   }
 
   ::selection {
@@ -148,12 +161,20 @@ a:hover {
 }
 
 .prose a {
-  @apply underline underline-offset-2 decoration-1;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--rule);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.prose a:hover {
+  text-decoration-style: solid;
   text-decoration-color: currentColor;
 }
 
 .prose .anchor:after {
-  @apply text-zinc-400;
+  color: var(--label);
   content: '#';
 }
 
@@ -184,29 +205,28 @@ a:hover {
 }
 
 .prose p {
-  @apply my-5 text-[0.9375rem] font-normal;
-  line-height: 1.65;
+  @apply my-[22px] text-[17px] leading-[29px] font-normal;
   color: inherit;
 }
 
 .prose h1 {
-  @apply text-xl font-bold tracking-tight mt-10 mb-4;
-  color: inherit;
+  @apply text-[23px] leading-[31px] font-medium tracking-[-0.01em] mt-12 mb-4;
+  color: var(--ink);
 }
 
 .prose h2 {
-  @apply text-[1.125rem] font-bold tracking-tight mt-10 mb-4;
-  color: inherit;
+  @apply text-[20px] leading-7 font-medium tracking-[-0.01em] mt-12 mb-3;
+  color: var(--ink);
 }
 
 .prose h3 {
-  @apply text-[1rem] font-semibold tracking-tight mt-8 mb-3;
-  color: inherit;
+  @apply text-[18px] leading-[26px] font-medium mt-10 mb-2;
+  color: var(--ink);
 }
 
 .prose h4 {
-  @apply text-[0.9375rem] font-semibold tracking-tight mt-6 mb-2;
-  color: inherit;
+  @apply text-[17px] leading-[26px] font-semibold mt-8 mb-2;
+  color: var(--ink);
 }
 
 .prose strong {
@@ -220,11 +240,14 @@ a:hover {
 }
 
 .prose blockquote {
-  @apply border-l-4 border-neutral-300 pl-6 my-8 italic text-neutral-700;
+  @apply border-l-2 pl-5 my-8 italic;
+  border-color: var(--rule);
+  color: var(--graphite);
 }
 
 .prose hr {
-  @apply border-neutral-200 my-12;
+  @apply my-12;
+  border-color: var(--hairline);
 }
 
 .prose ul {
@@ -249,12 +272,7 @@ a:hover {
 /* Narrower reading column and improved rhythm */
 .prose {
   @apply max-w-none font-serif text-left;
-}
-
-/* Lead paragraph slightly larger */
-.prose p:first-of-type {
-  @apply text-[1rem];
-  line-height: 1.7;
+  color: var(--copy);
 }
 
 /* Underline support for inline <u> */
@@ -264,20 +282,8 @@ a:hover {
    PROSE DARK MODE - Must come after light styles
    ============================================ */
 @media (prefers-color-scheme: dark) {
-  .prose .anchor:after {
-    @apply text-zinc-500;
-  }
-
   .prose pre {
     @apply bg-neutral-900 border-neutral-700;
-  }
-
-  .prose blockquote {
-    @apply border-neutral-600 text-neutral-300;
-  }
-
-  .prose hr {
-    @apply border-neutral-700;
   }
 }
 
@@ -565,26 +571,22 @@ img[width][height] {
 /* ============================================
    MINIMAL PAGE OVERRIDES (homepage + essays)
    ============================================ */
-.homepage-minimal a {
-  color: #52525b; /* zinc-600 — subtle but distinct */
-  text-decoration: none;
-}
-.homepage-minimal a:hover {
-  color: inherit;
-  text-decoration: underline;
+.link {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--rule);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 150ms ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  .homepage-minimal a {
-    color: #a1a1aa; /* zinc-400 */
-  }
-  .homepage-minimal a:hover {
-    color: inherit;
-  }
+.link:hover {
+  text-decoration-style: solid;
+  text-decoration-color: currentColor;
 }
-.homepage-minimal img {
-  border-radius: 1px;
-  outline: 1px solid oklch(0 0 0 / 0.1);
+
+.frame {
+  outline: 1px solid var(--hairline);
   outline-offset: -1px;
 }
 
@@ -603,10 +605,6 @@ img[width][height] {
 }
 
 @media (prefers-color-scheme: dark) {
-  .homepage-minimal img {
-    outline-color: oklch(1 0 0 / 0.1);
-  }
-
   .ascii-backdrop {
     opacity: 0.09;
     mix-blend-mode: screen;

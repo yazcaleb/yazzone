@@ -50,7 +50,7 @@ function getMDXData(dir) {
     const readingTime = calculateReadingTime(content)
 
     return {
-      metadata: { ...metadata, readingTime },
+      metadata: { ...metadata, summary: metadata.summary?.replace(/—/g, ' - '), readingTime },
       slug,
       content: content.replace(/—/g, ' - '),
     }
