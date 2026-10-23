@@ -114,7 +114,7 @@ export default function Page() {
                 height={750}
                 loading="lazy"
                 decoding="async"
-                className="frame w-full rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.06),0_12px_32px_rgba(0,0,0,0.08)]"
+                className="frame lift w-full rounded-lg"
               />
             </picture>
           </a>
@@ -132,6 +132,7 @@ export default function Page() {
             <div className="w-[75%] sm:w-[60%]">
               <PaperPage
                 src="/images/home/can-is-not-may-p1.webp"
+                darkSrc="/images/home/can-is-not-may-p1-dark.webp"
                 alt="First page of the preprint Can Is Not May: Authority Models for Governable AI Agents"
               />
             </div>

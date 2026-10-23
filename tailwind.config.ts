@@ -12,6 +12,7 @@ const config: Config = {
       colors: {
         wall: 'var(--wall)',
         shelf: 'var(--shelf)',
+        paper: 'var(--paper)',
         ink: 'var(--ink)',
         graphite: 'var(--graphite)',
         label: 'var(--label)',

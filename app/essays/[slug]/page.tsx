@@ -140,7 +140,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
               width={post.metadata.imageWidth || 1280}
               height={post.metadata.imageHeight || 720}
               decoding="async"
-              className="absolute inset-0 m-auto h-auto max-h-[calc(100%_-_52px)] w-auto max-w-[calc(100%_-_52px)] shadow-[0_1px_2px_rgba(0,0,0,0.08),0_16px_40px_rgba(0,0,0,0.1)] sm:max-h-[calc(100%_-_64px)] sm:max-w-[calc(100%_-_64px)]"
+              className="absolute inset-0 m-auto h-auto max-h-[calc(100%_-_52px)] w-auto max-w-[calc(100%_-_52px)] lift sm:max-h-[calc(100%_-_64px)] sm:max-w-[calc(100%_-_64px)]"
             />
           </div>
           {post.metadata.imageCaption && (

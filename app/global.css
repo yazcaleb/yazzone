@@ -17,6 +17,9 @@
   --label: #6f6d68;
   --hairline: #ededeb;
   --rule: #b5b3ae;
+  --paper: #ffffff;
+  --rim: rgba(0, 0, 0, 0.07);
+  --lift: 0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 32px rgba(0, 0, 0, 0.08);
   --cg-empty: #f2f2f0;
   --cg-l1: #dcdbd8;
   --cg-l2: #a9a7a2;
@@ -56,6 +59,9 @@ html:focus-within {
     --label: #8a8883;
     --hairline: #242422;
     --rule: #55534e;
+    --paper: #232323;
+    --rim: rgba(255, 255, 255, 0.09);
+    --lift: 0 1px 2px rgba(0, 0, 0, 0.5), 0 14px 36px rgba(0, 0, 0, 0.5);
     --cg-empty: #1c1c1b;
     --cg-l1: #2e2d2b;
     --cg-l2: #575550;
@@ -72,20 +78,14 @@ html:focus-within {
     --sh-entity: #fff;
   }
 
-  ::selection {
-    background-color: #fff;
-    color: #000;
-  }
-
   .callout {
     @apply border-neutral-800 bg-neutral-900 text-neutral-200;
   }
 }
 
-/* Light mode selection */
 ::selection {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--ink);
+  color: var(--wall);
 }
 
 /* ============================================
@@ -586,8 +586,12 @@ img[width][height] {
 }
 
 .frame {
-  outline: 1px solid var(--hairline);
+  outline: 1px solid var(--rim);
   outline-offset: -1px;
+}
+
+.lift {
+  box-shadow: var(--lift);
 }
 
 :focus-visible {
