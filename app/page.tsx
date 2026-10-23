@@ -229,9 +229,9 @@ export default function Page() {
         </section>
 
         <a
-          href="https://plaw.cal.com/yaz"
+          href="https://plaw.cal.com/yaz/bet"
           {...external}
-          aria-label="Better call Yaz: schedule a call"
+          aria-label="Better Call Yaz: book a 15-minute call"
           className="mt-16 block w-[168px] -rotate-3 text-ink opacity-90 transition-opacity hover:opacity-100 sm:mt-[88px]"
         >
           <span
