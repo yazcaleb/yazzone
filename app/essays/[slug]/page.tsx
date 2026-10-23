@@ -119,7 +119,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
             author: {
               '@type': 'Person',
               name: 'Yaz Caleb',
-              url: 'https://yaz.zone',
+              url: 'https://yaz.md',
               sameAs: ['https://x.com/yazcal', 'https://github.com/yazcaleb'],
             },
           }),

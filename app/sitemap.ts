@@ -1,6 +1,6 @@
 import { getEssays } from 'app/essays/utils'
 
-export const baseUrl = 'https://yaz.zone'
+export const baseUrl = 'https://yaz.md'
 
 export default async function sitemap() {
   let allEssays = getEssays()

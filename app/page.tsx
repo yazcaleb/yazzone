@@ -28,8 +28,8 @@ export default function Page() {
             '@type': 'Person',
             name: 'Yaz Caleb',
             alternateName: ['Yaz A. Caleb', 'Yagiz Erkam Celebi'],
-            url: 'https://yaz.zone',
-            image: 'https://yaz.zone/yaz-latest.webp',
+            url: 'https://yaz.md',
+            image: 'https://yaz.md/yaz-latest.webp',
             description: 'Builder. Founder of Veto and Plaw. Essays on AI, infrastructure, and compounding conviction.',
             jobTitle: 'Cofounder & CEO',
             worksFor: { '@type': 'Organization', name: 'Plaw Inc.', url: 'https://plaw.io' },
@@ -148,7 +148,7 @@ export default function Page() {
           <a href="https://x.com/yazcal" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">x</a>
           <Link href="/essays">essays</Link>
           <a href="https://github.com/yazcaleb" target="_blank" rel="noopener noreferrer">github</a>
-          <a href="mailto:y@plaw.io?subject=hey&amp;body=(via%20yaz.zone)%0A%0A">y@plaw.io</a>
+          <a href="mailto:y@plaw.io?subject=hey&amp;body=(via%20yaz.md)%0A%0A">y@plaw.io</a>
         </footer>
       </div>
     </>

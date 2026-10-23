@@ -87,7 +87,7 @@ export async function GET(request: Request) {
               fontFamily: 'system-ui, sans-serif',
             }}
           >
-            yaz.zone
+            yaz.md
           </div>
         </div>
       ),

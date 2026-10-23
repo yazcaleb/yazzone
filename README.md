@@ -1,6 +1,6 @@
 # yazzone
 
-Personal site at [yaz.zone](https://yaz.zone).
+Personal site at [yaz.md](https://yaz.md).
 
 ## Philosophy
 
