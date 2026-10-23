@@ -12,7 +12,7 @@ const external = { target: '_blank', rel: 'noopener noreferrer' }
 
 const previously = [
   { name: 'Clade AI', note: 'Founder, 30+ people, shut down' },
-  { name: 'ThirdLayer', note: 'YC W25', href: 'https://thirdlayer.inc' },
+  { name: 'Tavus AI', note: 'YC S21', href: 'https://www.tavus.io' },
   { name: 'Cluely', note: 'One week', href: 'https://cluely.com' },
   { name: 'NASA Space Apps', note: 'Mentor, 2023', href: 'https://www.spaceappschallenge.org/2023/' },
   { name: 'TED-Ed', note: 'Talk on terms and conditions' },
