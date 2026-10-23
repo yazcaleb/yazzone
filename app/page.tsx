@@ -159,7 +159,7 @@ export default function Page() {
             </div>
             <div className="flex items-baseline justify-between gap-4 border-t border-hairline py-[13px]">
               <span className="text-ink">Raising a pre-seed round</span>
-              <a href="https://cal.com/yaz/bet" {...external} className="link shrink-0 font-sans text-[14px] leading-5">
+              <a href="https://plaw.cal.com/yaz/investor" {...external} className="link shrink-0 font-sans text-[14px] leading-5">
                 Schedule a call
               </a>
             </div>
@@ -230,7 +230,7 @@ export default function Page() {
         </section>
 
         <a
-          href="https://cal.com/yaz/bet"
+          href="https://plaw.cal.com/yaz"
           {...external}
           aria-label="Better call Yaz: schedule a call"
           className="mt-16 block w-[168px] -rotate-3 text-ink opacity-90 transition-opacity hover:opacity-100 sm:mt-[88px]"
