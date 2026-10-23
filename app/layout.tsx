@@ -71,6 +71,8 @@ export const metadata: Metadata = {
     'Yaz A. Caleb',
     'Yağız Erkam Çelebi',
     'Yaz Çelebi',
+    'Yagiz Celebi',
+    'Yağız Çelebi',
     'Plaw',
     'Veto',
     'programmable law',

@@ -42,7 +42,7 @@ export default function Page() {
             '@context': 'https://schema.org',
             '@type': 'Person',
             name: 'Yaz Caleb',
-            alternateName: ['Yaz A. Caleb', 'Yagiz Erkam Celebi'],
+            alternateName: ['Yaz A. Caleb', 'Yaz Celebi', 'Yagiz Celebi', 'Yagiz Erkam Celebi'],
             url: baseUrl,
             image: `${baseUrl}/yaz-latest.webp`,
             description: 'Builder. Founder of Veto and Plaw. Essays on AI, infrastructure, and compounding conviction.',
@@ -69,7 +69,7 @@ export default function Page() {
             Yaz Caleb
           </h1>
           <p className="font-sans text-[13px] leading-5 text-label">
-            Yaz Celebi / Ya&#287;&#305;z Erkam &Ccedil;elebi
+            Yaz Celebi / Yagiz Celebi / Ya&#287;&#305;z Erkam &Ccedil;elebi
           </p>
         </header>
 
