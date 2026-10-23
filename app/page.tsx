@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { getEssays } from 'app/essays/utils'
 import AgeCounter from 'app/components/AgeCounter'
 import ContribGraph from 'app/components/ContribGraph'
-import AsciiBackdrop from 'app/components/AsciiBackdrop'
 import PaperPage from 'app/components/PaperPage'
 import { formatDate } from 'app/lib/format'
 import { baseUrl } from 'app/sitemap'
@@ -56,9 +55,7 @@ export default function Page() {
         }}
       />
 
-      <AsciiBackdrop />
-
-      <div className="relative z-10 mx-auto max-w-[600px] font-serif text-[15px] leading-[25px] text-graphite">
+      <div className="mx-auto max-w-[600px] font-serif text-[15px] leading-[25px] text-graphite">
         <header>
           <img
             src="/avatar-192.webp"
