@@ -143,8 +143,7 @@ export default function Page() {
           <p className="mt-1 leading-6">
             My preprint on authority models. Across 7,427 trials, prompt-only
             guardrails let agents take unauthorized actions 18.3% of the time; an
-            external authority model let through none. Plaw and Arizona State
-            University, March 2026.
+            external authority model let through none.
           </p>
 
           <div className="mt-9 border-b border-hairline">
